@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpg,jpeg,png',
-            'factory_id' => 'required|integer|exists:factory,id',
+            'factory_id' => 'required|integer|exists:factories,id',
             'description' => 'required|string|max:255',
         ];
     }

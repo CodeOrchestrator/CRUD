@@ -11,4 +11,8 @@ class Factory extends Model
     protected $table = 'factories';
     use HasFactory;
     protected $fillable = ['name', 'motto', 'user_id', 'logo_image'];
+
+    public function user(){
+        
+    }
 }

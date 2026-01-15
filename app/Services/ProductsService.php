@@ -45,6 +45,7 @@ class ProductsService
                 'image' => $path,
                 'factory_id' => $request->factory_id,
                 'price' => $request->price,
+                'quantity' => $request->quantity,
             ];
 
             return $this->repository->create($data);
@@ -63,9 +64,9 @@ class ProductsService
     public function update($request, $id)
     {
         try {
-            $product = $this->repository->find($id);
+            $product = $this->find($id);
 
-            $data = $request->only(['name', 'description', 'price']);
+            $data = $request->only(['name', 'description', 'price', 'quantity', 'factory_id']);
 
             if ($request->hasFile('image')) {
                 $path = Storage::disk('public')->put('products', $request->image);
