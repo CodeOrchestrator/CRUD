@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'name' => 'required|unique:factories,name|max:50|string',
             'motto' => 'required|string|max:255|min:10',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
-            'user_id' => 'required|integer|exists:users,id'
+            'user_id' => 'nullable|integer|exists:users,id'
         ];
     }
 

@@ -13,6 +13,6 @@ class Factory extends Model
     protected $fillable = ['name', 'motto', 'user_id', 'logo_image'];
 
     public function user(){
-        
+        $this->hasOne(User::class);
     }
 }

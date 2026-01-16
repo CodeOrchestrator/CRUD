@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('factories', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->string('name')->unique();
             $table->string('motto');
             $table->string('logo_image');
