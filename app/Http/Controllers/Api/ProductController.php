@@ -58,6 +58,14 @@ class ProductController extends Controller
 
     public function delete($id){
         $product = $this->service->delete($id);
+
+        if ($product == null){
+            return response()->json([
+                'success' => false,
+                'error' => 'bazada mavjud emas'
+            ],200);
+        }
+
         if (isset($product['error'])) {
             return response()->json(['success' => false, 'error' => $product['message']],200);
         }

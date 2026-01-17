@@ -57,6 +57,13 @@ class FactoryController extends Controller
 
     public function delete($id){
         $factory = $this->service->delete($id);
+
+        if ($factory == null){
+            return response()->json([
+                'success' => false,
+                'error' => 'bazada mavjud emas'
+            ],200);
+        }
         if (isset($factory['error'])) {
             return response()->json(['success' => false, 'error' => $factory['message']],200);
         }

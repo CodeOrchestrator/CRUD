@@ -100,6 +100,8 @@ class ProductsService
                 $this->repository->delete($product);
             }
 
+            return null;
+
         }catch (\Exception $e) {
             return [
                 'error' => true,
