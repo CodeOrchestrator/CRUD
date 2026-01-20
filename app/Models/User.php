@@ -47,9 +47,22 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-
+            'email_verification_code_expires_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getGuardName(): string
+    {
+        return 'sanctum';
+    }
+
+    public function generateEmailVerificationCode(): string|null
+    {
+        $this->email_verification_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $this->email_verification_code_expires_at = now()->addMinutes(2);
+        $this->save();
+        return $this->email_verification_code;
     }
 
 
