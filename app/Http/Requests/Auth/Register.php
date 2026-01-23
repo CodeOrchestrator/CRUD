@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Factory;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rules\Password;
 
-class CreateRequest extends FormRequest
+
+class Register extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -25,17 +26,12 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:factories,name|max:50|string',
-            'motto' => 'required|string|max:255|min:10',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:3048',
-            'user_id' => 'nullable|integer|exists:users,id'
+            'name' => 'required|string|max:255', 'email' => 'required|string|email|unique:users', 'password' => ['required', 'confirmed', Password::defaults()]
         ];
     }
 
-    protected function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator)
     {
-
-
         throw new HttpResponseException(
             response()->json([
                 'success' => false,
@@ -44,6 +40,4 @@ class CreateRequest extends FormRequest
             ],422)
         );
     }
-
-
 }

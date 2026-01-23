@@ -41,6 +41,6 @@ class RolePermissionSeeder extends Seeder
 
 
         $userRole = Role::create(['name' => 'User', 'guard_name' => 'sanctum']);
-        $userRole->givePermissionTo('view-products', 'view-factories');
+        $userRole->givePermissionTo('view-products');
     }
 }

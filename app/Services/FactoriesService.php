@@ -3,11 +3,12 @@
 namespace App\Services;
 
 use App\Repositories\FactoriesRepository;
+use App\Repositories\Interface\FactoriesRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
 
 class FactoriesService
 {
-    public function __construct(protected FactoriesRepository $repository)
+    public function __construct(protected FactoriesRepositoryInterface $repository)
     {
     }
 

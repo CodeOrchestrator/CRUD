@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\FactoryController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
@@ -18,3 +19,6 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::post('/product', [ProductController::class, 'create']);
 Route::put('/product/{id}', [ProductController::class, 'update']);
 Route::delete('/product/{id}', [ProductController::class, 'delete']);
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('verify', [AuthController::class, 'verify']);

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Factory;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdateRequest extends FormRequest
+class Verify extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,13 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'nullable|sometimes|string|max:255',
-            'motto' => 'nullable|sometimes|string|max:255',
-            'user_id' => 'nullable|sometimes|integer|exists:users,id',
-            'image' => 'nullable|sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'email' => 'required|email|exists:users,email',
+            'code' => 'required|size:6',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(
-            response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'error' => $validator->errors()->toArray()
-            ], 422));
+        throw new HttpResponseException(response()->json(['success' => false, 'message' => 'Validation failed', 'error' => $validator->errors()->toArray(),], 422));
     }
-
 }

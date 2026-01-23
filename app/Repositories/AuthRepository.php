@@ -7,24 +7,28 @@ use App\Repositories\Interface\AuthRepositoryInterface;
 
 class AuthRepository implements AuthRepositoryInterface
 {
+
+    public function __construct(protected User $user)
+    {
+    }
     public function all()
     {
-        return User::all();
+        return $this->user->all();
     }
 
     public function findById(int $id): ?User
     {
-        return User::query()->find($id);
+        return $this->user->query()->find($id);
     }
 
     public function findByEmail(string $email): ?User
     {
-        return User::query()->where('email', $email)->first();
+        return $this->user->query()->where('email', $email)->first();
     }
 
     public function register(array $data): User
     {
-        return User::query()->create($data);
+        return $this->user->query()->create($data);
     }
 
     public function verify(User $user)
@@ -65,7 +69,7 @@ class AuthRepository implements AuthRepositoryInterface
     }
     public function checkEmail(string $email): bool
     {
-        return User::query()->where('email', $email)->exists();
+        return $this->user->query()->where('email', $email)->exists();
     }
 
 }
