@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -70,15 +71,20 @@ class User extends Authenticatable
     public function markEmailAsVerifiedWithCode(): void
     {
         $this->email_verified_at = now();
-        $this->email_verfication_code = null;
-        $this->email_verfication_code_expires_at = null;
+        $this->email_verification_code = null;
+        $this->email_verification_code_expires_at = null;
         $this->save();
     }
 
     public function isValidVerificationCode($code): bool
     {
-        return $this->email_veerification_code == $code && $this->email_verification_code_expires_at &&
-            $this->email_verification_code_expires_at->isFuture() ;
+        return  $this->email_verification_code == $code && $this->email_verification_code_expires_at &&
+            $this->email_verification_code_expires_at->isFuture();
+    }
+
+    public function checkPassword(string $password): bool
+    {
+        return Hash::check($password, $this->password);
     }
 
     public function getMyRoleAttribute(): ?string
