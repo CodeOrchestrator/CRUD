@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordRequest;
+use App\Http\Requests\Auth\ForgetPasswordRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\Register;
 use App\Http\Requests\Auth\ResendRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\Verify;
 use App\Services\AuthService;
 use Illuminate\Auth\Events\Login;
@@ -91,7 +95,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $user = $this->authService->login($request);
 
@@ -118,7 +122,7 @@ class AuthController extends Controller
 
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(ChangePasswordRequest $request)
     {
         $user = $this->authService->changePassword($request);
         if (isset($user['error'])) {
@@ -130,7 +134,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function forgetPassword(Request $request)
+    public function forgetPassword(ForgetPasswordRequest $request)
     {
         $user = $this->authService->forgetPassword($request);
         if (isset($user['error'])) {
@@ -143,7 +147,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function resetPassword(Request $request)
+    public function resetPassword(ResetPasswordRequest $request)
     {
         $user = $this->authService->resetPassword($request);
         if (isset($user['error'])) {
